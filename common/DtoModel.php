@@ -24,20 +24,19 @@ abstract class DtoModel extends Model
     /**
      * @return T
      */
-    public function toDto()
+    public function toDto(): object
     {
         $class = $this->dtoClass();
         $reflection = new ReflectionClass($class);
-        $constructor = $reflection->getConstructor();
-        if (!$constructor) {
-            throw new Exception("Class $class doesn't have a constructor");
+        $instance = $reflection->newInstanceWithoutConstructor();
+
+        foreach ($reflection->getProperties() as $prop) {
+            $name = $prop->getName();
+            if (!property_exists($this, $name)) {
+                throw new Exception("Class " . $this->class . " doesn't have a property with name: $name");
+            }
+            $prop->setValue($instance, $this->$name);
         }
-        $args = [];
-        foreach ($constructor->getParameters() as $param) {
-            $name = $param->getName();
-            $value = $this->$name ?? null;
-            $args[$name] = $value;
-        }
-        return $reflection->newInstanceArgs($args);
+        return $instance;
     }
 }

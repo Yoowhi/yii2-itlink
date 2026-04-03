@@ -5,6 +5,10 @@ namespace app\models;
 use app\common\DtoModel;
 use app\dto\CreateCarDto;
 
+/**
+ * @extends DtoModel<CreateCarDto>
+ * @method CreateCarDto toDto()
+ */
 class CreateCarModel extends DtoModel
 {
     public $title;
