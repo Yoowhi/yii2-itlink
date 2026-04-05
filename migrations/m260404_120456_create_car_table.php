@@ -19,7 +19,7 @@ class m260404_120456_create_car_table extends Migration
             'price' => $this->decimal()->notNull(),
             'photo_url' => $this->string()->notNull(),
             'contacts' => $this->string()->notNull(),
-            'created_at' => $this->timestamp()
+            'created_at' => $this->timestamp()->notNull()
         ]);
     }
 
