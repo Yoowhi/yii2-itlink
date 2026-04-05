@@ -2,6 +2,7 @@
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
+$container = require __DIR__ . '/container.php';
 
 $config = [
     'id' => 'basic',
@@ -52,16 +53,11 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                [
-                    'class' => yii\rest\UrlRule::class,
-                    'controller' => 'car',
-                    'extraPatterns' => [
-                        'GET {id}' => 'get-one',
-                    ],
-                ],
+                'car/<id:\d+>' => 'car/get-one'
             ],
         ],
     ],
+    'container' => $container,
     'params' => $params,
 ];
 
