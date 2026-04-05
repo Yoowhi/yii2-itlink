@@ -14,7 +14,7 @@ class m260404_120514_create_car_option_table extends Migration
     {
         $this->createTable('{{%car_option}}', [
             'id' => $this->primaryKey(),
-            'car_id' => $this->integer()->notNull(),
+            'car_id' => $this->integer()->notNull()->unique(),
             'brand' => $this->string()->notNull(),
             'model' => $this->string()->notNull(),
             'year' => $this->integer()->notNull(),
