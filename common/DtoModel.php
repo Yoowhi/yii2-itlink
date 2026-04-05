@@ -9,21 +9,12 @@ use yii\base\Model;
 
 /**
  * Абстрактный родительский класс для всех моделей. 
- * Позволяет трансформировать модели в указанный DTO класс (после валидации), чтобы отвязать Yii2 от сервисов.
- * Признаюсь, фишки с рефлексией и дженериками в PHPDoc я подсмотрел, они мне понравились.
- * 
- * @template T of object
+ * Позволяет трансформировать модели в указанный DTO класс (после валидации)
  */
 abstract class DtoModel extends Model 
 {
-    /**
-     * @return class-string<T>
-     */
     abstract protected function dtoClass(): string;
 
-    /**
-     * @return T
-     */
     public function toDto(): object
     {
         $class = $this->dtoClass();
