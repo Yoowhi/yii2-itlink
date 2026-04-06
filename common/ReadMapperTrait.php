@@ -14,7 +14,7 @@ trait ReadMapperTrait
      * Метод для гидрции сущности.
      * Для автоматической гидрации можно вызвать mapToEntity(string $prefix, array $array, $entityClass)
      * где $prefix это имя таблицы из которой берутся данные. $entityClass это класс сущности.
-     * Можно вызывать несколько раз для заполнения из разных таблицы или в разные сущности.
+     * mapToEntity() можно вызывать несколько раз для заполнения из разных таблиц или в разные сущности.
      */
     abstract protected function arrayToEntity(array $array);
     /**
