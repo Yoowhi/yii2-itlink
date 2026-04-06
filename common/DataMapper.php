@@ -7,7 +7,14 @@ use yii\db\Query;
 
 abstract class DataMapper
 {
+    /**
+     * Должен возвращать Connection, полученный дочерним классом через DI
+     */
     protected abstract function getConnection(): Connection;
+
+    /**
+     * Название таблицы
+     */
     protected abstract function tableName(): string;
 
     public function countAll()

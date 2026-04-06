@@ -10,8 +10,16 @@ trait ReadMapperTrait
 {
     abstract protected function getConnection(): Connection;
     abstract protected function tableName(): string;
+    /**
+     * Метод для гидрции сущности.
+     * Для автоматической гидрации можно вызвать mapToEntity(string $prefix, array $array, $entityClass)
+     * где $prefix это имя таблицы из которой берутся данные. $entityClass это класс сущности.
+     * Можно вызывать несколько раз для заполнения из разных таблицы или в разные сущности.
+     */
     abstract protected function arrayToEntity(array $array);
     /**
+     * Возвращает массив в виде таблиц и соответствующих им столбцам.
+     * При наличии join надо указать все участвующие таблицы
      * @return ['tableName' => ['column1', 'column2']]
      */
     abstract protected function selectColumns();
@@ -38,6 +46,9 @@ trait ReadMapperTrait
         return $entities;
     }
 
+    /**
+     * При join запросах переопределить данный метод и добавить в $query необходимый join
+     */
     protected function withRelations(Query $query)
     {
         return $query;

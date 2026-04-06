@@ -9,6 +9,10 @@ trait WriteMapperTrait
 {
     abstract protected function getConnection(): Connection;
     abstract protected function tableName(): string;
+
+    /**
+     * Должен вернуть стандартный для Command массив с данными
+     */
     abstract protected function entityToArray($entity): array;
 
     public function insert($entity)
