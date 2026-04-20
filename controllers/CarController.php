@@ -13,6 +13,7 @@ use app\interfaces\CarServiceInterface;
 use app\models\CreateCarModel;
 use app\models\CreateCarOptionModel;
 use app\models\SearchCarsModel;
+use Exception;
 use Yii;
 use yii\rest\Controller;
 use yii\filters\VerbFilter;
@@ -74,7 +75,11 @@ class CarController extends Controller
 
         $createCarDto = $createCarModel->toDto();
         $createCarOptionDto = $createCarOptionModel ? $createCarOptionModel->toDto() : null;
-        return $this->carService->createCar($createCarDto, $createCarOptionDto);
+        try {
+            return $this->carService->createCar($createCarDto, $createCarOptionDto);
+        } catch (Exception $ex) {
+            throw new HttpException(StatusCode::INTERNAL_SERVER_ERROR);
+        }
     }
 
     public function actionGetOne(int $id) 

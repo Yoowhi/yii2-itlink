@@ -7,12 +7,13 @@ use app\entities\Page;
 use app\interfaces\CarRepositoryInterface;
 use app\mappers\CarAndCarOptionReadDataMapper;
 use app\mappers\CarWriteDataMapper;
+use yii\db\Connection;
 
 class CarRepository implements CarRepositoryInterface
 {
     public function __construct(
         private CarWriteDataMapper $carWriteDataMapper,
-        private CarAndCarOptionReadDataMapper $carAndCarOptionReadDataMapper
+        private CarAndCarOptionReadDataMapper $carAndCarOptionReadDataMapper,
     ) {}
 
     public function save($entity): Car
@@ -20,7 +21,7 @@ class CarRepository implements CarRepositoryInterface
         if (!empty($entity->id)) {
             $exists = $this->carWriteDataMapper->existsById($entity->id);
             return $exists 
-                ? $this->carWriteDataMapper->update($entity)
+                ? $this->carWriteDataMapper->update($entity, $entity->id)
                 : $this->carWriteDataMapper->insert($entity);
         }
         return $this->carWriteDataMapper->insert($entity);

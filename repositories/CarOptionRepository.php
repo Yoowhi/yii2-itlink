@@ -17,7 +17,7 @@ class CarOptionRepository implements CarOptionRepositoryInterface
         if (!empty($entity->id)) {
             $exists = $this->carOptionWriteDataMapper->existsById($entity->id);
             return $exists 
-                ? $this->carOptionWriteDataMapper->update($entity)
+                ? $this->carOptionWriteDataMapper->update($entity, $entity->id)
                 : $this->carOptionWriteDataMapper->insert($entity);
         }
         return $this->carOptionWriteDataMapper->insert($entity);

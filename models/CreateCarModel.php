@@ -27,7 +27,8 @@ class CreateCarModel extends DtoModel
         return [
             [['title', 'description', 'price', 'photo_url', 'contacts'], 'required'],
             [['title', 'description', 'photo_url', 'contacts'], 'string'],
-            [['price'], 'number']
+            [['title', 'description', 'photo_url', 'contacts'], 'filter', 'filter' => function ($val) { return strip_tags(trim($val)); }],
+            [['price'], 'number', 'min' => 0]
         ];
     }
 }

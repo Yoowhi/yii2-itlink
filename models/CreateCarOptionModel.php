@@ -27,7 +27,9 @@ class CreateCarOptionModel extends DtoModel
         return [
             [['brand', 'model', 'year', 'body', 'mileage'], 'required'],
             [['brand', 'model', 'body'], 'string'],
-            [['year', 'mileage'], 'number']
+            [['brand', 'model', 'body'], 'filter', 'filter' => function ($val) { return strip_tags(trim($val)); }],
+            [['year'], 'integer', 'min' => 0, 'max' => (int)date('Y')],
+            [['mileage'], 'number', 'min' => 0]
         ];
     }
 }

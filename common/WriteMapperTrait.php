@@ -22,17 +22,20 @@ trait WriteMapperTrait
             ->insert($this->tableName(), $this->entityToArray($entity))
             ->execute();
         if ($result === 0) {
-            throw new Exception("Couldn't save entity to " . $this->tableName());
+            throw new Exception("Couldn't insert entity to " . $this->tableName());
         }
         $entity->id = $this->getConnection()->getLastInsertID();
         return $entity;
     }
 
-    public function update($entity)
+    public function update($entity, $id)
     {
+        if (is_null($id)) {
+            throw new Exception("Couldn't update entity in " . $this->tableName() . ". Incorrect id: " . print_r($id, true));
+        }
         $this->getConnection()
             ->createCommand()
-            ->update($this->tableName(), $this->entityToArray($entity))
+            ->update($this->tableName(), $this->entityToArray($entity), ['id' => $id])
             ->execute();
         return $entity;
     }

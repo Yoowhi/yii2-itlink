@@ -20,6 +20,7 @@ abstract class DataMapper
     public function countAll()
     {
         $result = new Query()
+            ->from($this->tableName())
             ->count('*', $this->getConnection());
         return (int)$result;
     }
